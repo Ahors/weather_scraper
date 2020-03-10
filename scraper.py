@@ -32,12 +32,16 @@ def get_temperature():
     return temperatures
 
 
-def get_weather_style():
-
-    filtered = soup.find(
+def get_specific_weather_data():
+    filtered_data = soup.find(
         'div', class_='daily-meteogram-container day-0 selected')
-    for tag in filtered.find_all(title=True):
-        print(tag.get('title'))
+    remove_useless_data = filtered_data.tbody('tr')[7]
+    remove_useless_data.decompose()
+    specific_data = [tag.get('title').replace('\xa0', '')
+                     for tag in filtered_data.find_all(title=True)]
+    specific_data.pop(0)
+
+    return specific_data
 
 
-print(get_weather_style())
+print(get_specific_weather_data())

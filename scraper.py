@@ -1,5 +1,5 @@
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 import random
 
 
@@ -32,4 +32,12 @@ def get_temperature():
     return temperatures
 
 
-print(get_temperature())
+def get_weather_style():
+
+    filtered = soup.find(
+        'div', class_='daily-meteogram-container day-0 selected')
+    for tag in filtered.find_all(title=True):
+        print(tag.get('title'))
+
+
+print(get_weather_style())

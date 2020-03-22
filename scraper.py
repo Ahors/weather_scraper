@@ -40,8 +40,10 @@ def get_specific_weather_data():
     specific_data = [tag.get('title').replace('\xa0', '')
                      for tag in filtered_data.find_all(title=True)]
     specific_data.pop(0)
-
-    return specific_data
+    data_len = len(specific_data)//7
+    chunks = [specific_data[x:x+data_len]
+              for x in range(0, data_len*7, data_len)]
+    return chunks
 
 
 print(get_specific_weather_data())
